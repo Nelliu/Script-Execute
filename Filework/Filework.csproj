@@ -172,6 +172,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Functions.cs" />
+    <Compile Include="GPlayer.cs" />
+    <Compile Include="IActions.cs" />
     <Compile Include="item.cs" />
     <Compile Include="items.cs" />
     <Compile Include="Player.cs" />

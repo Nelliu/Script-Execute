@@ -13,8 +13,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Scripting;
+using Microsoft.CodeAnalysis.Scripting;
 using Microsoft.Win32;
+using Functions;
 
 namespace Filework
 {
@@ -23,6 +26,7 @@ namespace Filework
     /// </summary>
     public partial class MainWindow : Window
     {
+      
         public MainWindow()
         {
             InitializeComponent();
@@ -32,11 +36,13 @@ namespace Filework
             var BaseItem = new item { itemName = "Paper", itemPrice = 1, itemStr = 0 };
             items IItems = new items();
             IItems.Inventory.Add(BaseItem);
-            var player = new Player { Strenght = 1, Agility = 2, Inteligence = 4, Health = 5, Inventory = IItems };
+            var player = new Player {Class = "Rogue",Strenght = 1, Agility = 2, Inteligence = 0, Health = 0, Inventory = IItems };
+  
+            script2(player);
 
-
-            script2();
         }
+
+
 
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
@@ -52,10 +58,19 @@ namespace Filework
         //    label.Content = state.ReturnValue;
         //}
 
-        async void script2()
+
+
+
+        async void script2(Player existingP) 
         {
-            var script = await CSharpScript.RunAsync<int>("Strenght + 1", globalsType: typeof(Player));
-            check.Content = script.ReturnValue;
+            GPlayer GlobalP = new GPlayer();
+            
+            GlobalP.PPlayer = existingP;
+            string code = "PPlayer.AddHealth(1); PPlayer.Add";
+            var metadata = MetadataReference.CreateFromFile(GlobalP.GetType().Assembly.Location);
+            
+            await CSharpScript.RunAsync(code, options: ScriptOptions.Default.WithReferences(metadata).WithImports(GetType().Namespace), globals: GlobalP);
+            check.Content = GlobalP.PPlayer.Health;
 
         }
 

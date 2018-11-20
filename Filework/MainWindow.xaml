@@ -8,15 +8,15 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <!--<Label x:Name="label" Margin="292,169,115,178"></Label>-->
-        <DockPanel Margin="10,10,249,171">
+        <DockPanel Margin="10,10,451,239">
             <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,0,0,10">
                 <Button Name="btnOpenFile" Click="btnOpenFile_Click">Open file</Button>
-                <Button Content="Run" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                
             </WrapPanel>
             <TextBox Name="txtEditor" />
             
         </DockPanel>
-        <Label x:Name="check"></Label>
+        <Label x:Name="check" Margin="582,50,98,341"></Label>
        
         
 
